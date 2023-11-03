@@ -351,6 +351,9 @@ bot.on("message", async (msg) => {
             },
           }
         );
+
+
+
       }else if(language == "🇷🇺"){
         await bot.sendMessage(
           chatId,
@@ -381,7 +384,7 @@ bot.on("message", async (msg) => {
           {
             reply_markup: {
               keyboard: [[{ text: "🔙 Go back" }]],
-              resize_keyboard: true,
+              resize_keyboard:  true,
             },
           }
         );
@@ -406,9 +409,40 @@ bot.on("message", async (msg) => {
               `Noto'g'ri ${change.text}\nQayta urining!`
             );
           }
+        } else if (change.text === "Kontakt") {
+          if (/^\+(7|86|998)\d{1,4}/.test(msg.text)) {
+            users[chatId].contact = msg.text;
+            step++;
+  
+            await bot.sendMessage(chatId, "Muvaffaqqiyatli o'zgartitrildi!", {
+              reply_markup: {
+                keyboard: [
+                  [{ text: "🔝 Bosh sahifa" }, { text: "🔙 Ortga qaytish" }],
+                ],
+                resize_keyboard: true,
+              },
+            });
+         }  
+         else {
+          await bot.sendMessage(
+            chatId,
+            `Noto'g'ri ${change.text}\nQayta urining!`
+          );
+        } 
+        } else if(change.text == "Ism") {
+          users[chatId].username = msg.text;
+          await bot.sendMessage(chatId, "Muvaffaqqiyatli o'zgartitrildi!", {
+            reply_markup: {
+              keyboard: [
+                [{ text: "🔝 Bosh sahifa" }, { text: "🔙 Ortga qaytish" }],
+              ],
+              resize_keyboard: true,
+            },
+          });
         }
-      }else if (language == "🇷🇺") {
-        if (change.text === "ИНН номер") {
+        
+         else if (language == "🇷🇺") {
+         if (change.text === "ИНН номер") {
           if (msg.text.length == 9 && !isNaN(+msg.text)) {
             users[chatId].inn = msg.text;
             step++;
@@ -426,6 +460,35 @@ bot.on("message", async (msg) => {
               `Неправильный ${change.text}\nУдарь еще раз!`
             );
           }
+        } else if (change.text === "Контакт") {
+          if (/^\+(7|86|998)\d{1,4}/.test(msg.text)) {
+            users[chatId].contact = msg.text;
+            step++;
+  
+            await bot.sendMessage(chatId, "Конвертировано успешно!", {
+              reply_markup: {
+                keyboard: [
+                  [{ text: "🔝 Главное меню" }, { text: "🔙 Возвращаться" }],
+                ],
+                resize_keyboard: true,
+              },
+            });
+          } else {
+            await bot.sendMessage(
+              chatId,
+              `Неправильный ${change.text}\nУдарь еще раз!`
+            );
+          }
+        } else  if (change.text == "Имя") {
+          users[chatId].username = msg.text;
+          await bot.sendMessage(chatId, "Конвертировано успешно!", {
+            reply_markup: {
+              keyboard: [
+                [{ text: "🔝 Главное меню" }, { text: "🔙 Возвращаться" }],
+              ],
+              resize_keyboard: true,
+            },
+          });
         }
       }else if (language == "🇬🇧"){
         if (change.text === "INN number") {
@@ -448,50 +511,7 @@ bot.on("message", async (msg) => {
           }
         }
       }
-      if (language == "🇺🇿"){
-         if (change.text === "Kontakt") {
-          if (/^\+(7|86|998)\d{1,4}/.test(msg.text)) {
-            users[chatId].contact = msg.text;
-            step++;
-  
-            await bot.sendMessage(chatId, "Muvaffaqqiyatli o'zgartitrildi!", {
-              reply_markup: {
-                keyboard: [
-                  [{ text: "🔝 Bosh sahifa" }, { text: "🔙 Ortga qaytish" }],
-                ],
-                resize_keyboard: true,
-              },
-            });
-          } else {
-            await bot.sendMessage(
-              chatId,
-              `Noto'g'ri ${change.text}\nQayta urining!`
-            );
-          }
-        }
-      } else if(language == "🇷🇺"){
-        if (change.text === "Контакт") {
-          if (/^\+(7|86|998)\d{1,4}/.test(msg.text)) {
-            users[chatId].contact = msg.text;
-            step++;
-  
-            await bot.sendMessage(chatId, "Конвертировано успешно!", {
-              reply_markup: {
-                keyboard: [
-                  [{ text: "🔝 Главное меню" }, { text: "🔙 Возвращаться" }],
-                ],
-                resize_keyboard: true,
-              },
-            });
-          } else {
-            await bot.sendMessage(
-              chatId,
-              `Неправильный ${change.text}\nУдарь еще раз!`
-            );
-          }
-        }
-      }else if (language == "🇬🇧"){
-        if (change.text === "Contact") {
+        else if (change.text === "Contact") {
           if (/^\+(7|86|998)\d{1,4}/.test(msg.text)) {
             users[chatId].contact = msg.text;
             step++;
@@ -511,33 +531,7 @@ bot.on("message", async (msg) => {
             );
           }
         }
-      }
-       if (language == "🇺🇿"){
-        if("") {
-          users[chatId].username = msg.text;
-          await bot.sendMessage(chatId, "Muvaffaqqiyatli o'zgartitrildi!", {
-            reply_markup: {
-              keyboard: [
-                [{ text: "🔝 Bosh sahifa" }, { text: "🔙 Ortga qaytish" }],
-              ],
-              resize_keyboard: true,
-            },
-          });
-        }
-       }else if (language == "🇷🇺"){
-        if ("") {
-          users[chatId].username = msg.text;
-          await bot.sendMessage(chatId, "Конвертировано успешно!", {
-            reply_markup: {
-              keyboard: [
-                [{ text: "🔝 Главное меню" }, { text: "🔙 Возвращаться" }],
-              ],
-              resize_keyboard: true,
-            },
-          });
-        }
-       } else if (language == "🇬🇧"){
-        if ("") {
+        else if (change.text == "Name") {
           users[chatId].username = msg.text;
           await bot.sendMessage(chatId, "Converted successfully!", {
             reply_markup: {
@@ -548,7 +542,8 @@ bot.on("message", async (msg) => {
             },
           });
         }
-       }
+      }
+
 
     } else if (
       (step === 4 && msg.text === "Sotib olish ✅") ||
@@ -1075,22 +1070,14 @@ bot.on("contact", async (msg) => {
     users[id]["link"] = link;
   
     if (language == "🇺🇿") {
-      await bot.sendMessage(id, "Kompaniyangizning INN raqamini kiriting!" ,
-    
-      );
-      
-      step++;
+      await bot.sendMessage(id, "Kompaniyangizning INN raqamini kiriting!");
     } else if (language == "🇷🇺") {
-      await bot.sendMessage(id, "Введите ИНН вашей компании!" ,
-     
-      );
-      step++;
+      await bot.sendMessage(id, "Введите ИНН вашей компании!");
+
     } else if (language == "🇬🇧") {
-      await bot.sendMessage(id, "Enter the INN number of your company!",
-     
-      );
-      step++;
+      await bot.sendMessage(id, "Enter the INN number of your company!");
     }
+    step++;
   } catch (error) {
     console.log(error.message);
   }
